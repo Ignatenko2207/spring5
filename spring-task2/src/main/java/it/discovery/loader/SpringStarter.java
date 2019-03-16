@@ -9,7 +9,8 @@ import it.discovery.service.BookService;
 
 public class SpringStarter {
 	public static void main(String[] args) {
-		try (ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("spring-beans.xml")) {
+		try (ClassPathXmlApplicationContext context =
+                     new ClassPathXmlApplicationContext("spring-beans.xml")) {
 			
 			BookService service = context.getBean(BookService.class);
 			//service = context.getBean("service");
@@ -22,6 +23,8 @@ public class SpringStarter {
 
 			List<Book> books = service.findBooks();
 			System.out.println(books);
+
+            System.out.println("Total bean count " + context.getBeanDefinitionCount());
 		}
 
 	}
