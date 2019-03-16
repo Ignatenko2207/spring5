@@ -1,8 +1,7 @@
 package it.discovery.repository;
 
 import it.discovery.model.Book;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.stereotype.Repository;
+import lombok.RequiredArgsConstructor;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
@@ -13,66 +12,51 @@ import java.util.Map;
 
 /**
  * Handles database-related book operations
- * 
- * @author morenets
  *
+ * @author morenets
  */
 //@Repository
 //@Qualifier("db")
+@RequiredArgsConstructor
 public class DBBookRepository implements BookRepository {
-	private final Map<Integer, Book> books = new HashMap<>();
+    private final Map<Integer, Book> books = new HashMap<>();
 
-	private int counter = 0;
+    private int counter = 0;
 
-	private String server = "localhost";
+    private final String server; // = "localhost";
 
-	private String db = "library";
+    private final String db; // = "library";
 
-	@PostConstruct
-	public void init() {
-		System.out.println("Started db repository with server:" + server + " and database: " + db );
-	}
+    @PostConstruct
+    public void init() {
+        System.out.println("Started db repository with server:" + server + " and database: " + db);
+    }
 
-	@PreDestroy
-	public void destroy() {
-		System.out.println("Shutting down repository ... ");
-	}
-	
-	@Override
-	public void saveBook(Book book) {
-		if (book.getId() == 0) {
-			counter++;
-			book.setId(counter);
-		}
-		
-		books.put(book.getId(), book);
+    @PreDestroy
+    public void destroy() {
+        System.out.println("Shutting down repository ... ");
+    }
 
-		System.out.println("Saved book " + book);
-	}
-	
-	@Override
-	public Book findBookById(int id) {
-		return books.get(id);
-	}
+    @Override
+    public void saveBook(Book book) {
+        if (book.getId() == 0) {
+            counter++;
+            book.setId(counter);
+        }
 
-	@Override
-	public List<Book> findBooks() {
-		return new ArrayList<>(books.values());
-	}
+        books.put(book.getId(), book);
 
-	public String getServer() {
-		return server;
-	}
+        System.out.println("Saved book " + book);
+    }
 
-	public void setServer(String server) {
-		this.server = server;
-	}
+    @Override
+    public Book findBookById(int id) {
+        return books.get(id);
+    }
 
-	public String getDb() {
-		return db;
-	}
+    @Override
+    public List<Book> findBooks() {
+        return new ArrayList<>(books.values());
+    }
 
-	public void setDb(String db) {
-		this.db = db;
-	}
 }

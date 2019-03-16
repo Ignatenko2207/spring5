@@ -6,10 +6,13 @@ import it.discovery.repository.XMLBookRepository;
 import it.discovery.service.BookService;
 import it.discovery.service.BookServiceImpl;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.PropertySource;
 
 @Configuration
+@PropertySource("application.properties")
 public class AppConfig {
 
     @Bean
@@ -20,8 +23,8 @@ public class AppConfig {
 
     @Bean
     @Qualifier("db")
-    public BookRepository dbRepository() {
-        return new DBBookRepository();
+    public BookRepository dbRepository(@Value("${book.server}") String server, @Value("${book.db}") String db) {
+        return new DBBookRepository(server, db);
     }
 
     @Bean
