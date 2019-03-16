@@ -4,6 +4,8 @@ import it.discovery.model.Book;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Repository;
 
+import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -26,10 +28,12 @@ public class DBBookRepository implements BookRepository {
 
 	private String db = "library";
 
+	@PostConstruct
 	public void init() {
 		System.out.println("Started db repository with server:" + server + " and database: " + db );
 	}
 
+	@PreDestroy
 	public void destroy() {
 		System.out.println("Shutting down repository ... ");
 	}
