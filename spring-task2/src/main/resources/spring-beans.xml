@@ -10,8 +10,6 @@
 
     <context:annotation-config/>
 
-    <bean id="repository" class="it.discovery.repository.DBBookRepository"
-          init-method="init" destroy-method="destroy"/>
+    <context:component-scan base-package="it.discovery" />
 
-    <bean id="service" class="it.discovery.service.BookServiceImpl"/>
 </beans>
