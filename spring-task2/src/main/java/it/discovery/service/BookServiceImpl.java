@@ -3,6 +3,7 @@ package it.discovery.service;
 import it.discovery.model.Book;
 import it.discovery.repository.BookRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Service;
 
@@ -16,9 +17,9 @@ public class BookServiceImpl implements BookService {
 	private List<BookRepository> repositories;
 
 	@Autowired
-	public BookServiceImpl(@NonNull BookRepository repository) {
+	public BookServiceImpl(@NonNull @Qualifier("db") BookRepository repository) {
 		this.repository = repository;
-		System.out.println("Using db repository");
+		System.out.println("Using " + repository.getClass().getSimpleName());
 	}
 
 	@Autowired

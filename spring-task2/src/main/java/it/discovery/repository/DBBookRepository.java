@@ -1,6 +1,7 @@
 package it.discovery.repository;
 
 import it.discovery.model.Book;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
@@ -15,6 +16,7 @@ import java.util.Map;
  *
  */
 @Repository
+@Qualifier("db")
 public class DBBookRepository implements BookRepository {
 	private final Map<Integer, Book> books = new HashMap<>();
 
