@@ -15,8 +15,8 @@ import java.util.Map;
  * @author morenets
  *
  */
-@Repository
-@Qualifier("db")
+//@Repository
+//@Qualifier("db")
 public class DBBookRepository implements BookRepository {
 	private final Map<Integer, Book> books = new HashMap<>();
 

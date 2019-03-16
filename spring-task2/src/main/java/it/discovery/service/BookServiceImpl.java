@@ -16,8 +16,8 @@ public class BookServiceImpl implements BookService {
 
 	private List<BookRepository> repositories;
 
-	@Autowired
-	public BookServiceImpl(@NonNull @Qualifier("db") BookRepository repository) {
+	//@Autowired
+	public BookServiceImpl(@NonNull /*@Qualifier("db")*/ BookRepository repository) {
 		this.repository = repository;
 		System.out.println("Using " + repository.getClass().getSimpleName());
 	}

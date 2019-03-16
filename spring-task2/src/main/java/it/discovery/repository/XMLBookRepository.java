@@ -6,8 +6,8 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-@Repository
-@Qualifier("xml")
+//@Repository
+//@Qualifier("xml")
 public class XMLBookRepository implements BookRepository {
 
     private String filePath = "books.xml";

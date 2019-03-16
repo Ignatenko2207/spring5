@@ -4,6 +4,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import it.discovery.config.AppConfig;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
@@ -14,7 +15,7 @@ public class SpringStarter {
     public static void main(String[] args) {
         try (AnnotationConfigApplicationContext context =
                      new AnnotationConfigApplicationContext(
-                             "it.discovery")) {
+                             AppConfig.class)) {
 
             BookService service = context.getBean(BookService.class);
             //service = context.getBean("service");
