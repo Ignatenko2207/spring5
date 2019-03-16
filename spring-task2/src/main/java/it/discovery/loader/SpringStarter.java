@@ -11,7 +11,8 @@ public class SpringStarter {
 	public static void main(String[] args) {
 		try (ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("spring-beans.xml")) {
 			
-			BookService service = null; //TODO Load from context
+			BookService service = context.getBean(BookService.class);
+			//service = context.getBean("service");
 			
 			Book book = new Book();
 			book.setName("Introduction into Spring");
