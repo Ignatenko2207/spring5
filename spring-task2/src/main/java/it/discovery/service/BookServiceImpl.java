@@ -2,8 +2,10 @@ package it.discovery.service;
 
 import it.discovery.events.LogEvent;
 import it.discovery.model.Book;
+import it.discovery.processor.Init;
 import it.discovery.repository.BookRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.lang.NonNull;
 import org.springframework.scheduling.annotation.Async;
@@ -38,6 +40,15 @@ public class BookServiceImpl implements BookService {
 		return repository.findBookById(id);
 	}
 
+	@Init
+	public void initService() {
+		System.out.println("Init was done for proxy ");
+	}
+
+	@Init
+	public void init(ApplicationContext context) {
+		System.out.println("Init was done for proxy with context: " + context);
+	}
 	@Override
 	@Async
 	public CompletableFuture<List<Book>> findBooks() {
