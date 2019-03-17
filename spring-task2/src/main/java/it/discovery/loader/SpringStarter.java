@@ -7,13 +7,12 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Collectors;
+import java.util.concurrent.CompletableFuture;
 
 public class SpringStarter {
     public static void main(String[] args) {
         try (AnnotationConfigApplicationContext context =
-                     new AnnotationConfigApplicationContext(
-                     )) {
+                     new AnnotationConfigApplicationContext()) {
 
             context.getEnvironment().setActiveProfiles("dev", "test");
             context.register(AppConfig.class);
@@ -28,19 +27,20 @@ public class SpringStarter {
             book.setYear(2016);
             service.saveBook(book);
 
-            List<Book> books = service.findBooks();
-            System.out.println(books);
+            CompletableFuture<List<Book>> future = service.findBooks();
+            future.thenAccept(books -> System.out.println(books));
+            //System.out.println(books);
 
             System.out.println("Current profiles: " +
                     Arrays.asList(context.getEnvironment().getActiveProfiles()));
 
             System.out.println("Total bean count: " + context.getBeanDefinitionCount());
-            System.out.println("Our beans: " +
-                    Arrays.stream(context.getBeanDefinitionNames())
-                            .map(context::getBean)
-                            .map(Object::getClass)
-                            .map(Class::getSimpleName)
-                            .collect(Collectors.joining(",")))
+//            System.out.println("Our beans: " +
+//                    Arrays.stream(context.getBeanDefinitionNames())
+//                            .map(context::getBean)
+//                            .map(Object::getClass)
+//                            .map(Class::getSimpleName)
+//                            .collect(Collectors.joining(",")))
             ;
         }
 

@@ -3,9 +3,11 @@ package it.discovery.service;
 import it.discovery.model.Book;
 import it.discovery.repository.BookRepository;
 import org.springframework.lang.NonNull;
+import org.springframework.scheduling.annotation.Async;
 
 import javax.annotation.Resource;
 import java.util.List;
+import java.util.concurrent.CompletableFuture;
 
 //@Service
 public class BookServiceImpl implements BookService {
@@ -33,8 +35,9 @@ public class BookServiceImpl implements BookService {
 	}
 
 	@Override
-	public List<Book> findBooks() {
-		return repository.findBooks();
+	@Async
+	public CompletableFuture<List<Book>> findBooks() {
+		return CompletableFuture.completedFuture(repository.findBooks());
 	}
 
 	public List<BookRepository> getRepositories() {

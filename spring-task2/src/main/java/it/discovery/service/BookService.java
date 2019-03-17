@@ -1,13 +1,14 @@
 package it.discovery.service;
 
-import java.util.List;
-
 import it.discovery.model.Book;
 
-public interface BookService {
-	public void saveBook(Book book);
-	
-	public Book findBookById(int id);
+import java.util.List;
+import java.util.concurrent.CompletableFuture;
 
-	public List<Book> findBooks();
+public interface BookService {
+	void saveBook(Book book);
+
+	Book findBookById(int id);
+
+	CompletableFuture<List<Book>> findBooks();
 }

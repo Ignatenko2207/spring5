@@ -6,14 +6,14 @@ import it.discovery.repository.XMLBookRepository;
 import it.discovery.service.BookService;
 import it.discovery.service.BookServiceImpl;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Profile;
-import org.springframework.context.annotation.PropertySource;
+import org.springframework.context.annotation.*;
 import org.springframework.core.env.Environment;
+import org.springframework.scheduling.annotation.EnableAsync;
 
 @Configuration
 @PropertySource("application.properties")
+@EnableAsync
+//@ComponentScan("it.discovery")
 public class AppConfig {
 
     @Bean
@@ -26,9 +26,16 @@ public class AppConfig {
     @Bean
     @Qualifier("db")
     @Profile("dev")
+    @Lazy
     public BookRepository dbRepository(Environment env) {
         return new DBBookRepository(env.getProperty("book.server", "localhost"),
                 env.getProperty("book.db", "library"));
+    }
+
+    @Lazy
+    @Bean
+    public String myBean() {
+        return "";
     }
 
     @Bean
