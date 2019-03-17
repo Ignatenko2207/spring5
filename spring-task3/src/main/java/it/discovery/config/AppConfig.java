@@ -13,11 +13,11 @@ import it.discovery.service.BookService;
 import it.discovery.service.BookServiceImpl;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.config.BeanPostProcessor;
+import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.*;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
-import org.springframework.core.env.Environment;
 import org.springframework.scheduling.annotation.EnableAsync;
 
 import java.util.List;
@@ -38,9 +38,9 @@ public class AppConfig {
     @Bean
     @Qualifier("db")
     @Profile("dev")
-    public BookRepository dbRepository(Environment env) {
-        return new DBBookRepository(env.getProperty("book.server", "localhost"),
-                env.getProperty("book.db", "library"));
+    @ConfigurationProperties("db")
+    public DBBookRepository dbRepository() {
+        return new DBBookRepository();
     }
 
     @Lazy

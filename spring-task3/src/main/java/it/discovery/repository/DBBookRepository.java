@@ -25,9 +25,17 @@ public class DBBookRepository implements BookRepository {
 
     private int counter = 0;
 
-    private final String server; // = "localhost";
+    private String server; // = "localhost";
 
-    private final String db; // = "library";
+    private String db; // = "library";
+
+    public void setServer(String server) {
+        this.server = server;
+    }
+
+    public void setDb(String db) {
+        this.db = db;
+    }
 
     @PostConstruct
     public void init() {
