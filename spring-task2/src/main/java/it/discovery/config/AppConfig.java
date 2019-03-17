@@ -54,7 +54,6 @@ public class AppConfig {
     @Configuration
     public class LoggerConfiguration {
         @Bean
-        @Order(Ordered.LOWEST_PRECEDENCE)
         public Logger fileLogger() {
             return new FileLogger();
         }

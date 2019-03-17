@@ -29,7 +29,7 @@ public class BookServiceImpl implements BookService {
 	public void saveBook(Book book) {
 		repository.saveBook(book);
 
-		eventPublisher.publishEvent(new LogEvent(this,
+        eventPublisher.publishEvent(new LogEvent("bookService",
 				"Saved book: " + book));
 	}
 	

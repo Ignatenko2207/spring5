@@ -6,8 +6,6 @@ import it.discovery.service.BookService;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 import java.util.Arrays;
-import java.util.List;
-import java.util.concurrent.CompletableFuture;
 
 public class SpringStarter {
     public static void main(String[] args) {
@@ -27,7 +25,7 @@ public class SpringStarter {
             book.setYear(2016);
             service.saveBook(book);
 
-            CompletableFuture<List<Book>> future = service.findBooks();
+            var future = service.findBooks();
             future.thenAccept(books -> System.out.println(books));
             //System.out.println(books);
 
