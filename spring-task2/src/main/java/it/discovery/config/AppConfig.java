@@ -4,12 +4,14 @@ import it.discovery.events.EventBus;
 import it.discovery.logger.FileLogger;
 import it.discovery.logger.InMemoryLogger;
 import it.discovery.logger.Logger;
+import it.discovery.processor.DebugPrintBeanPostProcessor;
 import it.discovery.repository.BookRepository;
 import it.discovery.repository.DBBookRepository;
 import it.discovery.repository.XMLBookRepository;
 import it.discovery.service.BookService;
 import it.discovery.service.BookServiceImpl;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.beans.factory.config.BeanPostProcessor;
 import org.springframework.context.annotation.*;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
@@ -67,6 +69,14 @@ public class AppConfig {
         @Bean
         public EventBus eventBus(List<Logger> loggers) {
             return new EventBus(loggers);
+        }
+    }
+
+    @Configuration
+    public class BeanPostProcessorConfig {
+        @Bean
+        public BeanPostProcessor debugPrintBeanPostProcessor() {
+            return new DebugPrintBeanPostProcessor();
         }
     }
 }

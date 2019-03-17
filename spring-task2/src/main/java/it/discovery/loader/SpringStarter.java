@@ -6,6 +6,7 @@ import it.discovery.service.BookService;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 import java.util.Arrays;
+import java.util.stream.Collectors;
 
 public class SpringStarter {
     public static void main(String[] args) {
@@ -33,12 +34,12 @@ public class SpringStarter {
                     Arrays.asList(context.getEnvironment().getActiveProfiles()));
 
             System.out.println("Total bean count: " + context.getBeanDefinitionCount());
-//            System.out.println("Our beans: " +
-//                    Arrays.stream(context.getBeanDefinitionNames())
-//                            .map(context::getBean)
-//                            .map(Object::getClass)
-//                            .map(Class::getSimpleName)
-//                            .collect(Collectors.joining(",")))
+            System.out.println("Our beans: " +
+                    Arrays.stream(context.getBeanDefinitionNames())
+                            .map(context::getBean)
+                            .map(Object::getClass)
+                            .map(Class::getSimpleName)
+                            .collect(Collectors.joining(",")))
             ;
         }
 
