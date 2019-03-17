@@ -5,6 +5,7 @@ import it.discovery.logger.FileLogger;
 import it.discovery.logger.InMemoryLogger;
 import it.discovery.logger.Logger;
 import it.discovery.processor.DebugPrintBeanPostProcessor;
+import it.discovery.processor.InitBeanPostProcessor;
 import it.discovery.repository.BookRepository;
 import it.discovery.repository.DBBookRepository;
 import it.discovery.repository.XMLBookRepository;
@@ -77,6 +78,11 @@ public class AppConfig {
         @Bean
         public BeanPostProcessor debugPrintBeanPostProcessor() {
             return new DebugPrintBeanPostProcessor();
+        }
+
+        @Bean
+        public InitBeanPostProcessor initBeanPostProcessor() {
+            return new InitBeanPostProcessor();
         }
     }
 }
