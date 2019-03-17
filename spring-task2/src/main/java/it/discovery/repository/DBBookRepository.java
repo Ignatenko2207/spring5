@@ -1,7 +1,9 @@
 package it.discovery.repository;
 
 import it.discovery.model.Book;
+import it.discovery.processor.Init;
 import lombok.RequiredArgsConstructor;
+import org.springframework.context.ApplicationContext;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
@@ -35,6 +37,16 @@ public class DBBookRepository implements BookRepository {
     @PreDestroy
     public void destroy() {
         System.out.println("Shutting down repository ... ");
+    }
+
+    @Init
+    public void initService() {
+        System.out.println("Init was done");
+    }
+
+    @Init
+    public void init(ApplicationContext context) {
+        System.out.println("Init was done with context: " + context);
     }
 
     @Override

@@ -16,10 +16,14 @@ public class InitBeanPostProcessor implements BeanPostProcessor {
     public Object postProcessAfterInitialization(Object bean, String beanName) throws BeansException {
         Stream.of(bean.getClass().getDeclaredMethods())
                 .filter(method -> method.getDeclaredAnnotation(Init.class) != null)
-                // .filter(method -> method.getParameters().length == 0)
                 .forEach(method -> {
                     try {
-                        method.invoke(bean);
+                        if (method.getParameterCount() == 0) {
+                            method.invoke(bean);
+                        } else if (method.getParameterCount() == 1 &&
+                                method.getParameterTypes()[0] == ApplicationContext.class) {
+                            method.invoke(bean, context);
+                        }
                     } catch (IllegalAccessException e) {
                         e.printStackTrace();
                     } catch (InvocationTargetException e) {

@@ -2,7 +2,6 @@ package it.discovery.service;
 
 import it.discovery.events.LogEvent;
 import it.discovery.model.Book;
-import it.discovery.processor.Init;
 import it.discovery.repository.BookRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
@@ -25,16 +24,6 @@ public class BookServiceImpl implements BookService {
 		this.repository = repository;
 		System.out.println("Using " + repository.getClass().getSimpleName());
 	}
-
-	@Init
-	public void initService() {
-		System.out.println("Init was done");
-	}
-
-//	@Init
-//	public void init(ApplicationContext context) {
-//		System.out.println("Init was done with context: " + context );
-//	}
 
 	@Override
 	public void saveBook(Book book) {
