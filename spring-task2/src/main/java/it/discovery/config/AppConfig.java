@@ -13,6 +13,7 @@ import it.discovery.service.BookService;
 import it.discovery.service.BookServiceImpl;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.config.BeanPostProcessor;
+import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.*;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
@@ -37,7 +38,6 @@ public class AppConfig {
     @Bean
     @Qualifier("db")
     @Profile("dev")
-    @Lazy
     public BookRepository dbRepository(Environment env) {
         return new DBBookRepository(env.getProperty("book.server", "localhost"),
                 env.getProperty("book.db", "library"));
@@ -58,17 +58,20 @@ public class AppConfig {
     public class LoggerConfiguration {
         @Bean
         public Logger fileLogger() {
+            System.out.println("File logger created");
             return new FileLogger();
         }
 
         @Bean
         @Order(Ordered.HIGHEST_PRECEDENCE)
         public Logger inMemoryLogger() {
+            fileLogger();
             return new InMemoryLogger();
         }
 
         @Bean
         public EventBus eventBus(List<Logger> loggers) {
+            fileLogger();
             return new EventBus(loggers);
         }
     }
@@ -81,8 +84,8 @@ public class AppConfig {
         }
 
         @Bean
-        public InitBeanPostProcessor initBeanPostProcessor() {
-            return new InitBeanPostProcessor();
+        public InitBeanPostProcessor initBeanPostProcessor(ApplicationContext context) {
+            return new InitBeanPostProcessor(context);
         }
     }
 }

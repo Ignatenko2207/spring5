@@ -27,7 +27,7 @@ public class BookServiceImpl implements BookService {
 	}
 
 	@Init
-	public void init() {
+	public void initService() {
 		System.out.println("Init was done");
 	}
 
