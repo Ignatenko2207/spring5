@@ -8,14 +8,16 @@ import it.discovery.processor.DebugPrintBeanPostProcessor;
 import it.discovery.processor.InitBeanPostProcessor;
 import it.discovery.repository.BookRepository;
 import it.discovery.repository.DBBookRepository;
-import it.discovery.repository.XMLBookRepository;
 import it.discovery.service.BookService;
 import it.discovery.service.BookServiceImpl;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.config.BeanPostProcessor;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.ApplicationContext;
-import org.springframework.context.annotation.*;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Lazy;
+import org.springframework.context.annotation.Profile;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
 import org.springframework.scheduling.annotation.EnableAsync;
@@ -23,17 +25,17 @@ import org.springframework.scheduling.annotation.EnableAsync;
 import java.util.List;
 
 @Configuration
-@PropertySource("application.properties")
+//@PropertySource("application.properties")
 @EnableAsync
 //@ComponentScan("it.discovery")
 public class AppConfig {
 
-    @Bean
-    @Qualifier("xml")
-    @Profile("test")
-    public BookRepository xmlRepository() {
-        return new XMLBookRepository();
-    }
+//    @Bean
+//    @Qualifier("xml")
+//    @Profile("test")
+//    public BookRepository xmlRepository() {
+//        return new XMLBookRepository();
+//    }
 
     @Bean
     @Qualifier("db")
