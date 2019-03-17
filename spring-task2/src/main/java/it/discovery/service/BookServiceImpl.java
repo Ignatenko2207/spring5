@@ -25,7 +25,9 @@ public class BookServiceImpl implements BookService {
 	}
 
 	@Override
+    @Async
 	public void saveBook(Book book) {
+        System.out.println(Thread.currentThread().getName());
 		repository.saveBook(book);
 	}
 	
