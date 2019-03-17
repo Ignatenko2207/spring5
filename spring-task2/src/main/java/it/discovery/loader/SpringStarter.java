@@ -1,21 +1,23 @@
 package it.discovery.loader;
 
+import it.discovery.config.AppConfig;
+import it.discovery.model.Book;
+import it.discovery.service.BookService;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
-
-import it.discovery.config.AppConfig;
-import org.springframework.context.annotation.AnnotationConfigApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
-
-import it.discovery.model.Book;
-import it.discovery.service.BookService;
 
 public class SpringStarter {
     public static void main(String[] args) {
         try (AnnotationConfigApplicationContext context =
                      new AnnotationConfigApplicationContext(
-                             AppConfig.class)) {
+                     )) {
+
+            context.getEnvironment().setActiveProfiles("dev", "test");
+            context.register(AppConfig.class);
+            context.refresh();
 
             BookService service = context.getBean(BookService.class);
             //service = context.getBean("service");
@@ -28,6 +30,9 @@ public class SpringStarter {
 
             List<Book> books = service.findBooks();
             System.out.println(books);
+
+            System.out.println("Current profiles: " +
+                    Arrays.asList(context.getEnvironment().getActiveProfiles()));
 
             System.out.println("Total bean count: " + context.getBeanDefinitionCount());
             System.out.println("Our beans: " +
