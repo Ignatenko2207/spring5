@@ -1,0 +1,6 @@
+db:
+  server: main
+  db: store
+spring:
+  profiles:
+    active: dev,test
