@@ -1,9 +1,10 @@
 package it.discovery.service;
 
-import it.discovery.logger.Logger;
+import it.discovery.events.LogEvent;
 import it.discovery.model.Book;
 import it.discovery.repository.BookRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.lang.NonNull;
 import org.springframework.scheduling.annotation.Async;
 
@@ -16,7 +17,7 @@ public class BookServiceImpl implements BookService {
 	private final BookRepository repository;
 
 	@Autowired
-	private List<Logger> loggers;
+	private ApplicationEventPublisher eventPublisher;
 
 	//@Autowired
 	public BookServiceImpl(@NonNull /*@Qualifier("db")*/ BookRepository repository) {
@@ -28,7 +29,8 @@ public class BookServiceImpl implements BookService {
 	public void saveBook(Book book) {
 		repository.saveBook(book);
 
-		loggers.forEach(logger -> logger.write("Saved book: " + book));
+		eventPublisher.publishEvent(new LogEvent(this,
+				"Saved book: " + book));
 	}
 	
 	@Override
